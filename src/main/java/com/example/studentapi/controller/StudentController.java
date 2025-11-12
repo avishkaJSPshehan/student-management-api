@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/students")
@@ -45,11 +46,11 @@ public class StudentController {
 
 	// Get All Students with pagination, sorting, and optional search ?q=
 	@GetMapping
-	public ResponseEntity<Page<Student>> getAll(
+	public ResponseEntity<List<Student>> getAll(
 			@RequestParam(value = "q", required = false) String query,
 			@PageableDefault(size = 10) Pageable pageable) {
 		Page<Student> page = studentService.getAll(query, pageable);
-		return ResponseEntity.ok(page);
+		return ResponseEntity.ok(page.getContent());
 	}
 
 	// Get Student By ID
