@@ -10,7 +10,6 @@ A clean CRUD REST API for managing students with validation, service layer, glob
 - Architecture & Project Structure
 - Prerequisites
 - Getting Started
-  - Run with in-memory H2 (default)
   - Run with MySQL
   - Build and run JAR
 - Configuration (properties and environment variables)
@@ -34,7 +33,7 @@ This service manages Students with the following fields: `id`, `name`, `email`, 
 
 - Spring Boot 3 (Java 17)
 - Spring Web, Spring Data JPA, Validation
-- H2 (default), MySQL
+- MySQL
 - Swagger UI via springdoc-openapi
 
 ## Features
@@ -60,32 +59,16 @@ src/
       exception/ResourceNotFoundException.java
       config/OpenApiConfig.java
     resources/
-      application.properties
-      # (Optional, if present) application-h2.properties, application-mysql.properties
+      application.yml
 ```
 
 ## Prerequisites
 
 - Java 17+
 - Maven 3.9+
-- Optional: MySQL 8.x (if running with MySQL)
+- MySQL 8.x
 
 ## Getting Started
-
-### Run with H2 (default — zero setup)
-
-```bash
-mvn spring-boot:run
-```
-
-App: `http://localhost:8080`
-
-H2 Console: `http://localhost:8080/h2-console`
-
-- JDBC URL: `jdbc:h2:mem:studentdb`
-- User: `sa` (no password)
-
-Swagger UI: `http://localhost:8080/swagger-ui.html`
 
 ### Run with MySQL
 
@@ -100,15 +83,21 @@ FLUSH PRIVILEGES;
 
 2. Configure Spring to use MySQL. You can choose one of the following:
 
-- Option A: Edit `src/main/resources/application.properties`
+- Option A: Edit `src/main/resources/application.yml`
 
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/studentdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-spring.datasource.username=student_user
-spring.datasource.password=StrongP@ssw0rd!
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+```yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/studentdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: student_user
+    password: StrongP@ssw0rd!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
 ```
 
 - Option B: Provide overrides via environment variables (no file edits)
@@ -148,17 +137,25 @@ java -jar target/student-management-api-0.0.1-SNAPSHOT.jar
 
 ## Configuration
 
-Common JPA properties (can live in `application.properties`):
+Common JPA properties (can live in `application.yml`):
 
-```properties
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.open-in-view=false
-spring.jpa.show-sql=false
-spring.jpa.properties.hibernate.format_sql=true
+```yaml
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
 
 # Swagger
-springdoc.swagger-ui.path=/swagger-ui.html
-springdoc.api-docs.path=/v3/api-docs
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
 ```
 
 ## Database
@@ -354,6 +351,6 @@ Then point Spring to `jdbc:mysql://localhost:3306/studentdb?...`.
 - “Access denied” or “Communications link failure” with MySQL
   - Verify DB is running, credentials are correct, and `allowPublicKeyRetrieval=true` is present in JDBC URL for MySQL 8.
 - Table not created
-  - Ensure `spring.jpa.hibernate.ddl-auto=update` is set when using MySQL/H2 in dev.
+  - Ensure `spring.jpa.hibernate.ddl-auto=update` is set when using MySQL in dev.
 - Swagger UI not loading
   - Confirm the app is running and access `http://localhost:8080/swagger-ui.html`. Check logs for errors.
