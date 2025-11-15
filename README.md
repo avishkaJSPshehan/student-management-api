@@ -22,8 +22,7 @@ A clean CRUD REST API for managing students with validation, service layer, glob
 - cURL Quick Start
 - Error Handling
 - Pagination, Sorting, and Search
-- Docker (optional)
-- Troubleshooting
+- Docker
 
 ## Overview
 
@@ -214,10 +213,10 @@ POST /api/students
 Content-Type: application/json
 
 {
-  "name": "Alice Johnson",
-  "email": "alice@example.com",
-  "course": "Computer Science",
-  "age": 20
+  "name": "Jayani Piyumika",
+  "email": "Jayani@gmail.com",
+  "course": "BST",
+  "age": 22
 }
 ```
 
@@ -234,14 +233,14 @@ Examples:
 - PUT `/api/students/{id}` — Update (200 OK / 404 Not Found)
 
 ```http
-PUT /api/students/1
+PUT /api/students/3
 Content-Type: application/json
 
 {
-  "name": "Alice J.",
-  "email": "alice.j@example.com",
+  "name": "Avishka Shehan jayasiri.",
+  "email": "Avishka@gmail.com",
   "course": "Software Engineering",
-  "age": 21
+  "age": 25
 }
 ```
 
@@ -343,14 +342,3 @@ docker run --name mysql-studentdb -e MYSQL_ROOT_PASSWORD=your_root_password \
 ```
 
 Then point Spring to `jdbc:mysql://localhost:3306/studentdb?...`.
-
-## Troubleshooting
-
-- “release version 5 not supported”
-  - Ensure Java 17 is used. We set Maven compiler to `<release>17</release>` in `pom.xml`. Also configure your IDE Project SDK to 17.
-- “Access denied” or “Communications link failure” with MySQL
-  - Verify DB is running, credentials are correct, and `allowPublicKeyRetrieval=true` is present in JDBC URL for MySQL 8.
-- Table not created
-  - Ensure `spring.jpa.hibernate.ddl-auto=update` is set when using MySQL in dev.
-- Swagger UI not loading
-  - Confirm the app is running and access `http://localhost:8080/swagger-ui.html`. Check logs for errors.
