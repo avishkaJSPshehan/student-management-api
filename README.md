@@ -170,10 +170,10 @@ Student fields:
 ```json
 {
   "id": 1,
-  "name": "John Doe",
-  "email": "john@example.com",
-  "course": "CS",
-  "age": 20
+  "name": "Avishka Shehan",
+  "email": "Avishka@gmail.com",
+  "course": "SE",
+  "age": 25
 }
 ```
 
@@ -258,11 +258,27 @@ Import the OpenAPI spec:
 2. Paste `http://localhost:8080/v3/api-docs`
 3. Postman creates a collection with all endpoints.
 
-Placeholders for screenshots (add your own images below):
+### Postman Screenshots
 
-[ Add Image: Postman Create Student Request ]
+#### Create Student (POST)
 
-[ Add Image: Postman List Students Response ]
+![Add Student](images/Add%20Student.JPG)
+
+#### Get All Students (GET)
+
+![Get All Student](images/Get%20All%20Student.JPG)
+
+#### Get Student by ID (GET)
+
+![Get Student by ID](images/Get%20Student%20by%20ID.JPG)
+
+#### Update Student (PUT)
+
+![Update Student](images/Update%20Student.JPG)
+
+#### Delete Student (DELETE)
+
+![Delete Student](images/Delete%20Student.JPG)
 
 ## cURL Quick Start
 
