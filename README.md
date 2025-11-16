@@ -2,28 +2,6 @@
 
 A clean CRUD REST API for managing students with validation, service layer, global exception handling, pagination/sorting/search, and Swagger UI.
 
-## Table of Contents
-
-- Overview
-- Tech Stack
-- Features
-- Architecture & Project Structure
-- Prerequisites
-- Getting Started
-  - Run with MySQL
-  - Build and run JAR
-- Configuration (properties and environment variables)
-- Database
-  - Entity model
-  - MySQL DDL
-- API Documentation (Swagger/OpenAPI)
-- Endpoints and Sample Requests
-- Postman
-- cURL Quick Start
-- Error Handling
-- Pagination, Sorting, and Search
-- Docker
-
 ## Overview
 
 This service manages Students with the following fields: `id`, `name`, `email`, `course`, `age`. Email is unique. The API exposes endpoints to create, list (with pagination/sorting/search), get by id, update, and delete.
@@ -34,13 +12,6 @@ This service manages Students with the following fields: `id`, `name`, `email`, 
 - Spring Web, Spring Data JPA, Validation
 - MySQL
 - Swagger UI via springdoc-openapi
-
-## Features
-
-- Create, Read (paged + search), Update, Delete students
-- Validation: required fields, valid email, age >= 18
-- Global exception handling with proper HTTP statuses
-- Swagger UI for interactive API exploration
 
 ## Architecture & Project Structure
 
@@ -97,16 +68,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-```
-
-- Option B: Provide overrides via environment variables (no file edits)
-
-```bash
-# Windows PowerShell example
-$Env:SPRING_DATASOURCE_URL="jdbc:mysql://localhost:3306/studentdb?useSSL=false&allowPublicKeyRetrieval=true"
-$Env:SPRING_DATASOURCE_USERNAME="student_user"
-$Env:SPRING_DATASOURCE_PASSWORD="StrongP@ssw0rd!"
-mvn spring-boot:run
 ```
 
 3. Run the application:
@@ -276,42 +237,6 @@ Import the OpenAPI spec:
 
 ![Delete Student](images/Delete%20Student.JPG)
 
-## cURL Quick Start
-
-- Create
-
-```bash
-curl -X POST http://localhost:8080/api/students \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Alice Johnson","email":"alice@example.com","course":"Computer Science","age":20}'
-```
-
-- List (page + search)
-
-```bash
-curl "http://localhost:8080/api/students?page=0&size=5&sort=name,asc&q=cs"
-```
-
-- Get by id
-
-```bash
-curl http://localhost:8080/api/students/1
-```
-
-- Update
-
-```bash
-curl -X PUT http://localhost:8080/api/students/1 \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Alice J.","email":"alice.j@example.com","course":"Software Engineering","age":21}'
-```
-
-- Delete
-
-```bash
-curl -X DELETE http://localhost:8080/api/students/1
-```
-
 ## Error Handling
 
 Common responses:
@@ -332,7 +257,7 @@ Examples:
 - `/api/students?page=1&size=10&sort=age,desc`
 - `/api/students?q=software`
 
-## Docker (optional)
+## Docker
 
 Run MySQL with Docker:
 
